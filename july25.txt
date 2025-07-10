@@ -1,0 +1,177 @@
+    1  minikube start
+    2  kubectl 
+    3  kubectl create deploy myweb --image=nginx --replicas=3
+    4  kubectl get all
+    5  ls
+    6  cat resources.txt 
+    7  kubectl --help | less
+    8  kubectl create --help
+    9  kubectl create --help | less
+   10  kubectl create deployment --help | less
+   11  kubectl get all
+   12  kubectl get pods
+   13  kubectl get all
+   14  kubectl delete pod myweb-574d7b7f-bj4bf 
+   15  kubectl get all
+   16  kubectl get pods -o wide
+   17  kubectl api-resources | less
+   18  kubectl api-resources | wc -l
+   19  kubectl explain pod
+   20  kubectl explain pod.spec | less
+   21  kubectl run --help | less
+   22  kubectl run hazelcast --image=hazelcast/hazelcast --port=5701
+   23  kubectl get pods
+   24  kubectl delete pods hazelcast 
+   25  kubectl get pods
+   26  history
+   27  kubectl
+   28  kubectl | less
+   29  history
+   30  kubectl create deploy newapp --image=nginx
+   31  kubectl get all
+   32  kubectl delete pods newapp-669cd84f9b-2tn9w 
+   33  kubectl get all
+   34  kubectl get all --selector app=newapp
+   35  kubectl get all --show-labels
+   36  kubectl get all --selector app=newapp
+   37  kubectl get all
+   38  kubectl describe deployments.apps newapp | less
+   39  kubectl describe pods newapp-669cd84f9b-fbfm4 | less
+   40  kubectl create deploy anotherapp --image=nginx --replicas=3 --dry-run=client -o yaml
+   41  kubectl create deploy anotherapp --image=nginx --replicas=3 --dry-run=client -o yaml > anotherapp.yaml
+   42  kubectl explain deployment.spec.strategy
+   43  vim anotherapp.yaml 
+   44  kubectl apply -f anotherapp.yaml 
+   45  kubectl get all
+   46  vim anotherapp.yaml 
+   47  kubectl explain deploy.spec.RollingUpdate
+   48  kubectl explain deploy.spec
+   49  kubectl explain deploy.spec.strategy
+   50  kubectl explain deploy.spec.strategy.rollingUpdate
+   51  vim anotherapp.yaml 
+   52  kubectl apply -f anotherapp.yaml 
+   53  kubectl get pods
+   54  kubectl get all --app=hello
+   55  kubectl get all --selector app=hello
+   56  vim anotherapp.yaml 
+   57  kubectl apply -f anotherapp.yaml 
+   58  kubectl get all --selector app=hello
+   59  kubectl rollout history deployment hello 
+   60  kubectl get all --selector app=hello
+   61  kubectl rollout undo deployment hello 
+   62  kubectl get all --selector app=hello
+   63  history
+   64  vim anotherapp.yaml 
+   65  cat anotherapp.yaml 
+   66  cat links 
+   67  kubectl get ns
+   68  kubectl get pods
+   69  kubectl get pods -A
+   70  kubectl get deploy
+   71  kubectl delete deploy hello
+   72  kubectl create deployment mydb --image=mariadb
+   73  kubectl get all --selector app=mydb
+   74  kubectl describe pod mydb-7c9ddb78dc-6md7p | less
+   75  kubectl logs mydb-7c9ddb78dc-6md7p 
+   76  kubectl get pods
+   77  kubectl describe pods mydb-7c9ddb78dc-6md7p | less
+   78  kubectl logs mydb-7c9ddb78dc-6md7p 
+   79  kubectl set env deploy/mydb MARIADB_ROOT_PASSWORD=password
+   80  kubectl get all --selector app=mydb
+   81  kubectl get pods -o wide
+   82  curl 10.244.0.3
+   83  history
+   84  kubectl create deploy nginxsvc --image=nginx
+   85  kubectl get all --selector app=nginxsvc
+   86  kubectl scale deployment nginxsvc --replicas=3
+   87  kubectl get all --selector app=nginxsvc
+   88  kubectl expose deployment nginxsvc --port=80
+   89  kubectl get all --selector app=nginxsvc
+   90  kubectl describe svc nginxsvc 
+   91  kubectl get endpoints
+   92  curl 10.106.87.95
+   93  minikube ssh
+   94  kubectl edit svc nginxsvc 
+   95  kubectl get svc
+   96  kubectl edit svc nginxsvc 
+   97  kubectl get svc
+   98  minikube ip
+   99  curl 192.168.49.2:32175
+  100  vim how-does-it-work.txt
+  101  history
+  102  kubectl describe svc nginxsvc 
+  103  kubectl get deploy
+  104  kubectl get pods
+  105  kubectl label pod newapp-669cd84f9b-fbfm4 app=nginxsvc
+  106  kubectl run checkit --image=nginx
+  107  kubectl label pod checkit app=nginxsvc
+  108  kubectl get pods --selector app=nginxsvc
+  109  kubectl describe svc nginxsvc 
+  110  history
+  111  vim how-does-it-work.txt 
+  112  minikube addons 
+  113  minikube addons list
+  114  minikube addon enable ingress
+  115  minikube addons enable ingress
+  116  kubectl get ns
+  117  kubectl get pods -n ingress-nginx 
+  118  kubectl create ing --help | less
+  119  #  kubectl create ingress simple --rule="foo.com/bar=svc1:8080,tls=my-cert"
+  120  kubectl create ing nginxsvc --rule="my.app.io=ngxsvc:80"
+  121  kubectl create ing nginxsvc --rule="my.app.io/=ngxsvc:80"
+  122  sudo vim /etc/hosts
+  123  curl my.app.io
+  124  kubectl delete ing nginxsvc 
+  125  kubectl create ing nginxsvc --rule="my.app.io/=nginxsvc:80"
+  126  kubectl get svc
+  127  curl my.app.io
+  128  history
+  129  tail /etc/hosts
+  130  kubectl get all -n ingress-nginx 
+  131  kubectl get ing
+  132  kubectl get svc
+  133  history
+  134  kubectl explain pod.spec.volumes
+  135  cat /etc/hosts
+  136  vim morevolumes.yaml 
+  137  kubectl apply -f morevolumes.yaml 
+  138  kubectl get pods morevol 
+  139  kubectl describe pod morevol | less
+  140  kubectl exec -it morevol -c centos1 -- touch /centos1/test
+  141  kubectl exec -ti morevol -c centos2 -- ls -l /centos2
+  142  kubectl get pvc,pc,storageclass
+  143  cat pvc.yaml
+  144  kubectl apply -f pvc.yaml
+  145  kubectl get pvc
+  146  kubectl get pv
+  147  cat pv-pod.yaml 
+  148  kubectl apply -f pv-pod.yaml 
+  149  kubectl get pods
+  150  kubectl exec -it pv-pod -- touch /usr/share/nginx/html/hello
+  151  kubectl get pv
+  152  kubectl describe pv pvc-724496a8-0722-4b4a-973a-dd100f1267a6 
+  153  minikube ssh
+  154  history
+  155  kubectl create deploy mynewdb --image=mariadb --replicas=3
+  156  kubectl get all --selector app=mynewdb
+  157  kubectl create cm mynewdbvars --from-literal=MARIADB_ROOT_PASSWORD=password
+  158  kubectl get cm mynewdbvars -o yaml
+  159  kubectl describe cm mynewdbvars 
+  160  kubectl set env --help
+  161  kubectl set env --help | less
+  162  kubectl set env --from=configmap/mynewdbvars deploy/mynewdb
+  163  kubectl get all --selector app=mynewdb
+  164  kubectl get pods mynewdb-85f4f6fd4-4lzzc -o yaml | less
+  165  kubectl describe cm mynewdbvars 
+  166  kubectl create secret --from-literal=MYPW=password
+  167  kubectl create secret mysecret --from-literal=MYPW=password
+  168  kubectl create secret mysecret --help | less
+  169  kubectl create secret mysecret generic --help | less
+  170  kubectl create secret generic --help | less
+  171  kubectl create secret mysecret generic mypw --from-literal=password
+  172  kubectl create secret generic --help | less
+  173  kubectl create secret generic my-secret --from-literal=key1=supersecret
+  174  kubectl get secret my-secret -o yaml
+  175  echo c3VwZXJzZWNyZXQ= | base64 -d
+  176  history
+  177  history > /tmp/july25.txt
